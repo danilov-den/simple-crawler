@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: Simple Crawler
+  description: Простой интернет crawler
+  version: 0.1.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Локальный сервер
+tags:
+  - name: Status
+    description: Состояние системы
+  - name: Urls
+    description: Url
+paths:
+  /status:
+    get:
+      tags:
+        - Status
+      summary: Состояние системы
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: OK
+  /urls:
+    post:
+      tags:
+        - Urls
+      summary: Отправка списка url
+      requestBody:
+        $ref: '#/components/requestBodies/Urls'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Titles'
+components:
+  schemas:
+    Title:
+      type: object
+      properties:
+        url:
+          type: string
+          example: "http://2gis.ru"
+        title:
+          type: string
+          example: "Карта городов России: Москва, Санкт-Петербург, Новосибирск и другие города — 2ГИС"
+    TitleError:
+      type: object
+      properties:
+        url:
+          type: string
+          example: "vk.com"
+        error:
+          type: string
+          example: "Malformed URL: vk.com"
+    Titles:
+      type: object
+      properties:
+        titles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Title'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/TitleError'
+  requestBodies:
+    Urls:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              urls:
+                type: array
+                items:
+                  type: string
+                  example: "http://2gis.ru"
