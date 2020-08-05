@@ -7,6 +7,6 @@ import org.http4s.dsl.Http4sDsl
 class StatusRoute[F[_]: Sync] extends Http4sDsl[F] {
   val routes: HttpRoutes[F] =
     HttpRoutes.of[F] {
-      case GET -> Root / "status" => Ok("OK")
+      case GET -> Root => Ok("OK")
     }
 }

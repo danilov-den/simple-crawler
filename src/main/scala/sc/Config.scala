@@ -10,6 +10,7 @@ object Config {
   object app {
     val host: String = conf.getString("app.host")
     val port: Int = conf.getInt("app.port")
+    val maxConcurrent: Int = conf.getInt("app.maxConcurrent")
   }
 
 }

@@ -1,6 +1,8 @@
 val catsVersion = "2.1.1"
+val circeVersion = "0.13.0"
 val http4sVersion = "0.21.6"
 val configVersion = "1.4.0"
+val scraperVersion = "2.2.0"
 
 lazy val commonSettings = Seq(
   name := "simple-crawler",
@@ -22,8 +24,14 @@ lazy val main = (project in file("."))
     libraryDependencies ++= Seq(
       "org.typelevel" %% "cats-core" % catsVersion,
 
+      "io.circe" %% "circe-generic" % circeVersion,
+      "io.circe" %% "circe-literal" % circeVersion,
+
       "org.http4s" %% "http4s-blaze-server" % http4sVersion,
       "org.http4s" %% "http4s-dsl" % http4sVersion,
+      "org.http4s" %% "http4s-circe" % http4sVersion,
+
+      "net.ruippeixotog" %% "scala-scraper" % scraperVersion,
 
       "com.typesafe" % "config" % configVersion
     )
